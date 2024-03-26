@@ -1,10 +1,11 @@
 <?php
 
+use App\Http\Controllers\PostulationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventController;
-use App\Http\Controllers\TodoController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -40,9 +41,25 @@ Route::controller(EventController::class)->group(function () {
     Route::put('event/{id}', 'update');
     Route::delete('event/{id}', 'destroy');
     Route::get('events/search', 'search');
+    Route::get('events/postulations', 'postulationsOfEvent');
+    Route::get('events/event', 'displayEventOfganisator');
 
 
 }); 
+
+
+Route::controller(PostulationController::class)->group(function () {
+    Route::get('event', 'index');
+    Route::post('creatEvent', 'store');
+    Route::get('event/{id}', 'show');
+    Route::put('event/{id}', 'update');
+    Route::delete('event/{id}', 'destroy');
+    Route::get('events/search', 'search');
+    Route::get('events/postulations', 'postulationsOfEvent');
+    Route::get('events/event', 'displayEventOfganisator');
+
+
+});
 
 
 Route::apiResource('users', AuthController::class );

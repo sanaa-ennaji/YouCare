@@ -116,7 +116,7 @@ class EventController extends Controller
         ]);
     }
 
-    public function displayEventOrganisator()
+    public function displayEventOfganisator()
     {
         $userId = Auth::id();
         $event = Event::where('user_id', $userId)->get();
