@@ -39,18 +39,12 @@ Route::controller(EventController::class)->group(function () {
     Route::get('event/{id}', 'show');
     Route::put('event/{id}', 'update');
     Route::delete('event/{id}', 'destroy');
+    Route::get('events/search', 'EventController@search');
+
+
 }); 
 
 
-
-
-Route::controller(TodoController::class)->group(function () {
-    Route::get('todos', 'index');
-    Route::post('todo', 'store');
-    Route::get('todo/{id}', 'show');
-    Route::put('todo/{id}', 'update');
-    Route::delete('todo/{id}', 'destroy');
-}); 
 
 Route::apiResource('users', AuthController::class );
 Route::get('/test', function () {

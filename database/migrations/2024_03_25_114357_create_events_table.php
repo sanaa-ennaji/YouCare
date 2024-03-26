@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('location');
             $table->string('type');
             $table->json('skills')->nullable();
-              $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

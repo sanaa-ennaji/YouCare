@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('event_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->boolean('accepted')->default(false);
+            $table->enum('status',['pending','accepted','rejected'])->default('pending');
+            $table->json('skills')->nullable();
             $table->timestamps();
         });
     }
