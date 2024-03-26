@@ -60,7 +60,7 @@ class PostulationController extends Controller
     }
 
 
-public function showOrganisatorReservation(){
+public function showbenevolePostulation(){
         $userId = Auth::id();
         $postule = postulation::where('user_id', $userId)->get();
         return response()->json([

@@ -33,6 +33,7 @@ class EventController extends Controller
                 'description' => 'required|string|max:255',
                 'date' => 'required',
                 'location' => 'required',
+                'type' => 'required',
                 'skills' => 'required',
             ]);
 
@@ -43,6 +44,7 @@ class EventController extends Controller
                 'description' => $request->description,
                 'date' => $request->date,
                 'location' => $request->location,
+                'type' => $request->type,
                 'skills' => $request->skills,
                 'user_id' => $user_id,
             ]);
@@ -85,6 +87,7 @@ class EventController extends Controller
             'description' => 'required|string|max:255',
             'date' => 'required',
             'location' => 'required',
+            'type' => 'required',
             'skills' => 'required',
         ]);
 
@@ -94,6 +97,7 @@ class EventController extends Controller
         $event->description = $request->description;
         $event->date = $request->date;
         $event->location = $request->location;
+        $event->type = $request->type;
         $event->skills = $request->skills;
         $event->user_id = $user_id;
         $event->save();

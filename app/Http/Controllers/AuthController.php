@@ -45,7 +45,7 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        // Validate incoming request data
+       
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -54,7 +54,6 @@ class AuthController extends Controller
             'phone' => 'numeric',
         ]);
     
-        // Create a new user record
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -67,9 +66,8 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => $request->password,
         ]);
-        // $token = Auth::login($user);
-    
        
+        // $token = Auth::login($user);
         return response()->json([
             'status' => 'success',
             'message' => 'User created successfully',
@@ -103,7 +101,28 @@ class AuthController extends Controller
         ]);
     }
 
+    public function showUsers(){
+        $users = User::all();
+        return response()->json([
+            'status' => 'success',
+            'users' => $users,
+        ]);
+    }
+    public function updateuserstatus(Request $request , $id){
+        
+        $request->validate([
+            'status' => 'required',
+        ]);
+        $user = User::findOrFail($id);
+      $users =  $user->update(['status' => $request->input('status')]);
+   
+        return response()->json([
+            'status' => 'success',
+            'users' => $users,
+        ]);
+    }
 
-    
+
+
 }
 

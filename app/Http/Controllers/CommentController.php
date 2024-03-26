@@ -28,7 +28,7 @@ class CommentController extends Controller
                 'organisator_id' => $request->input('organisator_id'),
                 'content' => $request->input('content'),
             ]);
-
+            
             return response()->json([
                 'status' => 'success',
                 'message' => 'Comment created successfully',

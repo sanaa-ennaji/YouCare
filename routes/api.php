@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostulationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,8 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
+    Route::put('banne', 'updateuserstatus');
+    Route::get('displayUser', 'showUsers');
 
 });
 
@@ -42,22 +45,21 @@ Route::controller(EventController::class)->group(function () {
     Route::delete('event/{id}', 'destroy');
     Route::get('events/search', 'search');
     Route::get('events/postulations', 'postulationsOfEvent');
-    Route::get('events/event', 'displayEventOfganisator');
+    Route::get('organisator/events', 'displayEventOfganisator');
 
 
 }); 
 
 
 Route::controller(PostulationController::class)->group(function () {
-    Route::get('event', 'index');
-    Route::post('creatEvent', 'store');
-    Route::get('event/{id}', 'show');
-    Route::put('event/{id}', 'update');
-    Route::delete('event/{id}', 'destroy');
-    Route::get('events/search', 'search');
-    Route::get('events/postulations', 'postulationsOfEvent');
-    Route::get('events/event', 'displayEventOfganisator');
+    Route::post('Postulation', 'ctreatePostulation');
+    Route::put('accepte', 'accepteReservation');
+    Route::get('benevole/postulation', 'showbenevolePostulation');
 
+});
+
+Route::controller(CommentController::class)->group(function () {
+    Route::post('Postulation', 'createComment');
 
 });
 
