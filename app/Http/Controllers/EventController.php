@@ -109,7 +109,6 @@ class EventController extends Controller
     {
         $event = Event::find($id);
         $event->delete();
-
         return response()->json([
             'status' => 'success',
             'message' => 'event deleted successfully',
@@ -130,7 +129,6 @@ class EventController extends Controller
     {
         $userId = Auth::id();
         $postulations = Event::where('user_id', $userId)->with('postulations')->get()->pluck('postulations')->flatten();
-
         return response()->json([
             'status' => 'success',
             'event' => $postulations

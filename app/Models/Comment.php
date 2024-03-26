@@ -13,4 +13,14 @@ class Comment extends Model
         'organisator_id' ,
          'content' ,
          ];
+
+         public function benevole()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function organisator()
+    {
+        return $this->belongsTo(User::class, 'organisator_id');
+    }
 }

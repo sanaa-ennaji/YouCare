@@ -32,18 +32,17 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('refresh', 'refresh');
 
 });
-// Route::apiResource('events', EventController::class);
+
 Route::controller(EventController::class)->group(function () {
     Route::get('event', 'index');
     Route::post('creatEvent', 'store');
     Route::get('event/{id}', 'show');
     Route::put('event/{id}', 'update');
     Route::delete('event/{id}', 'destroy');
-    Route::get('events/search', 'EventController@search');
+    Route::get('events/search', 'search');
 
 
 }); 
-
 
 
 Route::apiResource('users', AuthController::class );
