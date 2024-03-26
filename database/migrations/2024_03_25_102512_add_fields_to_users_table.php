@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('role');
             $table->string('phone')->nullable();
+            $table->string('status')->default('active'); // banned
+            $table->string('rating_status')->nullable();// rating
         });
     }
 

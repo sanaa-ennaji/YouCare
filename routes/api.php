@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\TodoController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -39,6 +41,16 @@ Route::controller(EventController::class)->group(function () {
     Route::delete('event/{id}', 'destroy');
 }); 
 
+
+
+
+Route::controller(TodoController::class)->group(function () {
+    Route::get('todos', 'index');
+    Route::post('todo', 'store');
+    Route::get('todo/{id}', 'show');
+    Route::put('todo/{id}', 'update');
+    Route::delete('todo/{id}', 'destroy');
+}); 
 
 Route::apiResource('users', AuthController::class );
 Route::get('/test', function () {

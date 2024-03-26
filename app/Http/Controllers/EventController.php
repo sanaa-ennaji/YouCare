@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
-
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 
 class EventController extends Controller
@@ -34,8 +34,9 @@ class EventController extends Controller
                     'date' => 'required',
                     'location' => 'required',
                     'skills' => 'required',
-                    'user_id' => 'required',
                 ]);
+        
+                $user_id = Auth::id();
         
                 $event = Event::create([
                     'title' => $request->title,
@@ -43,30 +44,29 @@ class EventController extends Controller
                     'date' => $request->date,
                     'location' => $request->location,
                     'skills' => $request->skills,
-                    'user_id' => $request->user_id,
+                    'user_id' => $user_id, 
                 ]);
         
                 return response()->json([
                     'status' => 'success',
                     'message' => 'event created successfully',
                     'event' => $event,
-                ], 201); // HTTP status code for successful creation
+                ], 201); 
         
             } catch (QueryException $e) {
-                // Database exception
                 return response()->json([
                     'status' => 'error',
                     'message' => 'Database error: ' . $e->getMessage(),
                 ], 500); 
         
             } catch (\Exception $e) {
-                
                 return response()->json([
                     'status' => 'error',
                     'message' => 'Unexpected error: ' . $e->getMessage(),
                 ], 500);
             }
         }
+        
         
     
         public function show($id)
@@ -86,16 +86,16 @@ class EventController extends Controller
                 'date' => 'required',
                 'location' => 'required',
                 'skills' => 'required',
-                'user_id' => 'required',
             ]);
     
+            $user_id = Auth::id();
             $event = Event::find($id);
             $event->title = $request->title;
             $event->description = $request->description;
             $event->date = $request->date;
             $event->location = $request->location;
             $event->skills = $request->skills;
-            $event->user_id = $request->user_id;
+            $event->user_id = $user_id;
             $event->save();
     
             return response()->json([

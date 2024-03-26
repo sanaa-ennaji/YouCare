@@ -63,8 +63,11 @@ class AuthController extends Controller
             'phone' => $request->phone,
         ]);
     
-       
-        $token = Auth::login($user);
+        $token = Auth::attempt([
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
+        // $token = Auth::login($user);
     
        
         return response()->json([
