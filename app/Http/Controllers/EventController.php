@@ -29,8 +29,8 @@ class EventController extends Controller
     {
         try {
             $request->validate([
-                'title' => 'required|string|max:255',
-                'description' => 'required|string|max:255',
+                'title' => 'required',
+                'description' => 'required',
                 'date' => 'required',
                 'location' => 'required',
                 'type' => 'required',
