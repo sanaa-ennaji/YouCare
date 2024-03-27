@@ -34,7 +34,7 @@ class EventController extends Controller
                 'date' => 'required',
                 'location' => 'required',
                 'type' => 'required',
-                'skills' => 'required',
+                'competences' =>'required',
             ]);
 
             $user_id = Auth::id();
@@ -45,7 +45,7 @@ class EventController extends Controller
                 'date' => $request->date,
                 'location' => $request->location,
                 'type' => $request->type,
-                'skills' => $request->skills,
+                'competences' => $request->competences,
                 'user_id' => $user_id,
             ]);
 
@@ -88,7 +88,7 @@ class EventController extends Controller
             'date' => 'required',
             'location' => 'required',
             'type' => 'required',
-            'skills' => 'required',
+            'competences' => 'required',
         ]);
 
         $user_id = Auth::id();
@@ -98,7 +98,7 @@ class EventController extends Controller
         $event->date = $request->date;
         $event->location = $request->location;
         $event->type = $request->type;
-        $event->skills = $request->skills;
+        $event->competences = $request->competences;
         $event->user_id = $user_id;
         $event->save();
 

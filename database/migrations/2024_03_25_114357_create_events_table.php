@@ -20,7 +20,7 @@ return new class extends Migration
                 $table->date('date');
                 $table->string('location');
                 $table->string('type');
-                $table->json('skills')->nullable();
+                $table->string('competences')->nullable();
                 $table->foreignId('user_id')->constrained()->onDelete('cascade');
                 $table->timestamps();
             });

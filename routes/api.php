@@ -46,8 +46,6 @@ Route::controller(EventController::class)->group(function () {
     Route::get('events/search', 'search');
     Route::get('events/postulations', 'postulationsOfEvent');
     Route::get('organisator/events', 'displayEventOfganisator');
-
-
 }); 
 
 

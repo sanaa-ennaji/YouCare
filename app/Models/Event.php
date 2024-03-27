@@ -14,7 +14,7 @@ class Event extends Model
      'date' ,
       'location' ,
       'type',
-       'skills' ,
+       'competences' ,
         'user_id',
     ];
     
