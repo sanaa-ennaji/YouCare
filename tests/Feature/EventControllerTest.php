@@ -13,31 +13,56 @@ class EventControllerTest extends TestCase
     use WithFaker;
 
     public function testStoreEvent()
-    {
-        $user = \App\Models\User::factory()->create();
+{
+    // Create a user
+    $user = \App\Models\User::factory()->create();
 
-        $eventData = [
-            'title' => $this->faker->sentence, 
-            'description' => $this->faker->test,
-            'date' => $this->faker->date,
-            'location' => $this->faker->address,
-            'type' => $this->faker->randomElement(['type1', 'type2', 'type3']),
-            'skills' => ['skill1', 'skill2', 'skill3'],
-        ];
+    
+    $eventData = [
+        'title' => $this->faker->sentence,
+        'description' => $this->faker->paragraph,
+        'date' => $this->faker->date,
+        'location' => $this->faker->address,
+        'type' => $this->faker->randomElement(['type1', 'type2', 'type3']),
+        'skills' => $this->faker->words(3), 
+    ];
 
-        dump($eventData['description']);
+    
+    $response = $this->actingAs($user, 'api')
+                     ->json('POST', '/api/creatEvent', $eventData);
 
-        $response = $this->actingAs($user, 'api')
-                         ->json('POST', '/api/creatEvent', $eventData);
+  
+    $response->assertStatus(Response::HTTP_CREATED)
+            
+             ->assertJsonStructure([
+                 'status',
+                 'message',
+                 'event' => [
+                     'id',
+                     'title',
+                     'description',
+                     'date',
+                     'location',
+                     'type',
+                     'skills',
+                     'user_id',
+                     'created_at',
+                     'updated_at',
+                 ]
+             ]);
 
-        $response->assertStatus(Response::HTTP_CREATED)
-                 ->assertJson([
-                     'status' => 'success',
-                     'message' => 'event created successfully',
-                 ]);
+  
+    $this->assertDatabaseHas('events', [
+        'title' => $eventData['title'],
+        'description' => $eventData['description'],
+        'date' => $eventData['date'],
+        'location' => $eventData['location'],
+        'type' => $eventData['type'],
+        'skills' => json_encode($eventData['skills']), 
+        'user_id' => $user->id,
+    ]);
+}
 
-       $this->assertDatabaseHas('events', $eventData);
-    }
 
     public function testDestroyEvent()
     {
