@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
+
 class AuthController extends Controller
 {
 
@@ -14,6 +15,42 @@ class AuthController extends Controller
     {
         $this->middleware('auth:api', ['except' => ['login','register']]);
     }
+
+    /**
+ * @OA\Post(
+ *     path="/api/login",
+ *     summary="Login user",
+ *     tags={"Authentication"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"email","password"},
+ *             @OA\Property(property="email", type="string", format="email", example="user@example.com"),
+ *             @OA\Property(property="password", type="string", format="password", example="password")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="User authenticated successfully",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="string", example="success"),
+ *             @OA\Property(property="user", ref="#/components/schemas/User"),
+ *             @OA\Property(property="authorization", type="object",
+ *                 @OA\Property(property="token", type="string", example="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9"),
+ *                 @OA\Property(property="type", type="string", example="bearer")
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="string", example="error"),
+ *             @OA\Property(property="message", type="string", example="Unauthorized")
+ *         )
+ *     )
+ * )
+ */
 
     public function login(Request $request)
     {
@@ -42,6 +79,48 @@ class AuthController extends Controller
             ]);
 
     }
+
+
+    /**
+ * @OA\Post(
+ *     path="/api/register",
+ *     summary="Register new user",
+ *     tags={"Authentication"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"name","email","password","role","phone"},
+ *             @OA\Property(property="name", type="string", example="John Doe"),
+ *             @OA\Property(property="email", type="string", format="email", example="user@example.com"),
+ *             @OA\Property(property="password", type="string", format="password", example="password"),
+ *             @OA\Property(property="role", type="string", enum={"organisator", "benevole", "admin"}, example="organisator"),
+ *             @OA\Property(property="phone", type="string", example="123456789")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=201,
+ *         description="User registered successfully",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="string", example="success"),
+ *             @OA\Property(property="message", type="string", example="User created successfully"),
+ *             @OA\Property(property="user", ref="#/components/schemas/User"),
+ *             @OA\Property(property="authorization", type="object",
+ *                 @OA\Property(property="token", type="string", example="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9"),
+ *                 @OA\Property(property="type", type="string", example="bearer")
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Validation error",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="status", type="string", example="error"),
+ *             @OA\Property(property="message", type="string", example="The given data was invalid."),
+ *             @OA\Property(property="errors", type="object")
+ *         )
+ *     )
+ * )
+ */
 
     public function register(Request $request)
     {
