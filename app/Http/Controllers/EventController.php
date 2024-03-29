@@ -15,6 +15,38 @@ class EventController extends Controller
         $this->middleware('auth:api');
     }
 
+
+     /**
+     * @OA\Get(
+     *     path="/api/events",
+     *     tags={"events"},
+     *     summary="show events",
+     *     description="Multiple status values can be provided with comma separated string",
+     *     operationId="index",
+     *     deprecated=true,
+     *     @OA\Parameter(
+     *         name="status",
+     *         in="query",
+     *         description="Status values that needed to be considered for filter",
+     *         required=true,
+     *         explode=true,
+     *         @OA\Schema(
+     *             default="available",
+     *             type="string",
+     *             enum={"available", "pending", "sold"},
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation",
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid status value"
+     *     )
+     * )
+     */
     public function index()
     {
         $event = Event::all();
