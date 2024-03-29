@@ -15,38 +15,21 @@ class EventController extends Controller
         $this->middleware('auth:api');
     }
 
+  /**
+ * @OA\Get(
+ *     path="/api/event",
+ *     summary="Get all events",
+ *     tags={"Events"},
+ *     @OA\Response(
+ *         response=200,
+ *         description="List of all events",
+ *         )
+ *     )
+ * 
+ * )
+ */
 
-     /**
-     * @OA\Get(
-     *     path="/api/events",
-     *     tags={"events"},
-     *     summary="show events",
-     *     description="Multiple status values can be provided with comma separated string",
-     *     operationId="index",
-     *     deprecated=true,
-     *     @OA\Parameter(
-     *         name="status",
-     *         in="query",
-     *         description="Status values that needed to be considered for filter",
-     *         required=true,
-     *         explode=true,
-     *         @OA\Schema(
-     *             default="available",
-     *             type="string",
-     *             enum={"available", "pending", "sold"},
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="successful operation",
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=400,
-     *         description="Invalid status value"
-     *     )
-     * )
-     */
+   
     public function index()
     {
         $event = Event::all();
@@ -56,6 +39,35 @@ class EventController extends Controller
         ]);
     }
 
+
+    /**
+ * @OA\Post(
+ *     path="/api/creatEvent",
+ *     summary="Create a new event",
+ *     tags={"Events"},
+ *     security={{"bearerAuth":{}}},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"title","description","date","location","type","competences"},
+ *             @OA\Property(property="title", type="string", example="Event title"),
+ *             @OA\Property(property="description", type="string", example="Event description"),
+ *             @OA\Property(property="date", type="string", format="date", example="2024-12-31"),
+ *             @OA\Property(property="location", type="string", example="Event location"),
+ *             @OA\Property(property="type", type="string", example="Event type"),
+ *             @OA\Property(property="competences", type="string", example="Event competences")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=201,
+ *         description="Event created successfully",
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Validation error",
+ *     )
+ * )
+ */
 
     public function store(Request $request)
     {

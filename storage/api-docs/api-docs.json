@@ -13,6 +13,23 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Login user",
+                "operationId": "a3b306d14572d1f4bd6c064b3233e7b8",
+                "requestBody": {
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "User authenticated successfully"
+                    }
+                }
+            }
+        },
         "/api/register": {
             "post": {
                 "tags": [
@@ -73,48 +90,95 @@
                 }
             }
         },
-        "/api/events": {
+        "/api/event": {
             "get": {
                 "tags": [
-                    "events"
+                    "Events"
                 ],
-                "summary": "show events",
-                "description": "Multiple status values can be provided with comma separated string",
-                "operationId": "index",
-                "parameters": [
-                    {
-                        "name": "status",
-                        "in": "query",
-                        "description": "Status values that needed to be considered for filter",
-                        "required": true,
-                        "explode": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "available",
-                            "enum": [
-                                "available",
-                                "pending",
-                                "sold"
-                            ]
-                        }
-                    }
-                ],
+                "summary": "Get all events",
+                "operationId": "c41ead8dce94da3a165556310df2c2a6",
                 "responses": {
                     "200": {
-                        "description": "successful operation"
+                        "description": "List of all events"
+                    }
+                }
+            }
+        },
+        "/api/creatEvent": {
+            "post": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Create a new event",
+                "operationId": "b0cf4debacbdaae925bf4992b8ef9cc2",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "description",
+                                    "date",
+                                    "location",
+                                    "type",
+                                    "competences"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Event title"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Event description"
+                                    },
+                                    "date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2024-12-31"
+                                    },
+                                    "location": {
+                                        "type": "string",
+                                        "example": "Event location"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "example": "Event type"
+                                    },
+                                    "competences": {
+                                        "type": "string",
+                                        "example": "Event competences"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
                     }
                 },
-                "deprecated": true
+                "responses": {
+                    "201": {
+                        "description": "Event created successfully"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         }
     },
     "components": {
         "responses": {
+            "401": {
+                "description": "Unauthorized"
+            },
             "422": {
                 "description": "Validation error"
-            },
-            "400": {
-                "description": "Invalid status value"
             }
         }
     }

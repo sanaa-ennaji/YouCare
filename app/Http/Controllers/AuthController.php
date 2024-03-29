@@ -16,7 +16,25 @@ class AuthController extends Controller
         $this->middleware('auth:api', ['except' => ['login','register']]);
     }
 
-
+/**
+ * @OA\Post(
+ *     path="/api/login",
+ *     summary="Login user",
+ *     tags={"Authentication"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="User authenticated successfully",
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Unauthorized",
+ *     )
+ * )
+ */
 
     public function login(Request $request)
     {
