@@ -170,6 +170,173 @@
                     }
                 ]
             }
+        },
+        "/api/events/search": {
+            "get": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Search events",
+                "operationId": "97d20bbd01ddc03b6117d917f5919b4c",
+                "parameters": [
+                    {
+                        "name": "location",
+                        "in": "query",
+                        "description": "Location to filter events by",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "Type to filter events by",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of events matching the search criteria"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/Postulation": {
+            "post": {
+                "tags": [
+                    "Postulations"
+                ],
+                "summary": "Create a postulation for an event",
+                "operationId": "875e280ca4e37f8279e4e94309a0a471",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "event_id",
+                                    "skills"
+                                ],
+                                "properties": {
+                                    "event_id": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "skills": {
+                                        "type": "string",
+                                        "example": "Skill 1, Skill 2"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Postulation created successfully"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/accepte": {
+            "put": {
+                "tags": [
+                    "Postulations"
+                ],
+                "summary": "Accept or reject a postulation",
+                "operationId": "5e286a865342a9004f7ec27abd1eed77",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the postulation to accept or reject",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "status"
+                                ],
+                                "properties": {
+                                    "status": {
+                                        "type": "string",
+                                        "enum": [
+                                            "accepted",
+                                            "rejected"
+                                        ],
+                                        "example": "accepted"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Postulation updated successfully"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Postulation not found"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/benevole/postulation": {
+            "get": {
+                "tags": [
+                    "Postulations"
+                ],
+                "summary": "Get postulations of the authenticated user",
+                "operationId": "190e720f16f0103e0d9b27223de745df",
+                "responses": {
+                    "200": {
+                        "description": "List of postulations of the authenticated user"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {

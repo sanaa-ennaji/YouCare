@@ -15,7 +15,7 @@ class EventController extends Controller
         $this->middleware('auth:api');
     }
 
-  /**
+ /**
  * @OA\Get(
  *     path="/api/event",
  *     summary="Get all events",
@@ -25,7 +25,6 @@ class EventController extends Controller
  *         description="List of all events",
  *         )
  *     )
- * 
  * )
  */
 
@@ -183,6 +182,38 @@ class EventController extends Controller
             ,
         ]);
     }
+
+
+
+/**
+ * @OA\Get(
+ *     path="/api/events/search",
+ *     summary="Search events",
+ *     tags={"Events"},
+ *     security={{"bearerAuth":{}}},
+ *     @OA\Parameter(
+ *         name="location",
+ *         in="query",
+ *         description="Location to filter events by",
+ *         @OA\Schema(type="string")
+ *     ),
+ *     @OA\Parameter(
+ *         name="type",
+ *         in="query",
+ *         description="Type to filter events by",
+ *         @OA\Schema(type="string")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="List of events matching the search criteria",
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Validation error",
+ *     )
+ * )
+ */
+
 
     public function search(Request $request)
     {
