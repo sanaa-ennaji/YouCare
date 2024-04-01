@@ -50,7 +50,7 @@ Route::controller(EventController::class)->group(function () {
 
 
 Route::controller(PostulationController::class)->group(function () {
-    Route::post('Postulation', 'ctreatePostulation');
+    Route::post('postulation', 'createPostulation');
     Route::put('accepte', 'accepteReservation');
     Route::get('benevole/postulation', 'showbenevolePostulation');
 

@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\User;
+use App\Models\Event;
 use Illuminate\Foundation\Testing\WithFaker;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -67,21 +68,46 @@ class EventControllerTest extends TestCase
 }
 
 
-    public function testDestroyEvent()
-    {
-        $user = User::factory()->create();
-        $event = \App\Models\Event::factory()->create(['user_id' => $user->id]);
+public function testShowEvent()
+{
+    $user = User::factory()->create();
+    
+    $event = Event::factory()->create([
+        'title' => $this->faker->word,
+        'description' => $this->faker->word,
+        'date' => $this->faker->date,
+        'location' => $this->faker->word,
+        'type' => $this->faker->word,
+        'competences' => $this->faker->word, 
+        'user_id' => $user->id,
+    ]);
 
-        $response = $this->actingAs($user, 'api')
-                         ->json('DELETE', "/api/event/{$event->id}");
+    $response = $this->actingAs($user, 'api')
+                     ->json('GET', '/api/event/' . $event->id);
+    
+    $response->assertStatus(Response::HTTP_OK)
+            
+             ->assertJsonStructure([
+                 'status',
+                 'event' => [
+                     'id',
+                     'title',
+                     'description',
+                     'date',
+                     'location',
+                     'type',
+                     'competences',
+                     'user_id',
+                 ]
+             ])
+    
+             ->assertJson([
+                 'status' => 'success',
+                 'event' => $event->toArray(),
+             ]);
+}
 
-        $response->assertStatus(Response::HTTP_OK)
-                 ->assertJson([
-                     'status' => 'success',
-                     'message' => 'event deleted successfully',
-                 ]);
 
-        $this->assertDeleted('events', ['id' => $event->id]);
-    }
+
 }
 

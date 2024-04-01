@@ -20,7 +20,7 @@ class EventController extends Controller
  *     path="/api/event",
  *     summary="Get all events",
  *     tags={"Events"},
- *     @OA\Response(
+ *     @OA\Response("
  *         response=200,
  *         description="List of all events",
  *         )

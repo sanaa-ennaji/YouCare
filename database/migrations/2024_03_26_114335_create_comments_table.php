@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); 
             $table->foreignId('organisator_id')->constrained('users')->onDelete('cascade'); // id of  user being commented on
             $table->text('content');
-            $table->json('skills')->nullable();
             $table->timestamps();
         });
     }

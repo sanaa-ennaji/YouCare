@@ -39,7 +39,7 @@ class PostulationController extends Controller
  *     )
  * )
  */
-    public function ctreatePostulation(Request $request){
+    public function createPostulation (Request $request){
 
         $postulation =$request->validate([
             'event_id' => ['required'],
