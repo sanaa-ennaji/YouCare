@@ -125,6 +125,12 @@ class EventController extends Controller
 
     public function update(Request $request, $id)
     {
+        if (Auth::id() !== Event::find($id)->user_id) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'not allowed',
+            ]); 
+        }
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:255',

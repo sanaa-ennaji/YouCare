@@ -34,15 +34,14 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('refresh', 'refresh');
     Route::put('banne', 'updateuserstatus');
     Route::get('displayUser', 'showUsers');
-
 });
 
 Route::controller(EventController::class)->group(function () {
     Route::get('event', 'index');
     Route::post('creatEvent', 'store');
     Route::get('event/{id}', 'show');
-    Route::put('event/{id}', 'update');
-    Route::delete('event/{id}', 'destroy');
+    Route::put('updateEvent/{id}', 'update');
+    Route::delete('destroyEvent/{id}', 'destroy');
     Route::get('events/search', 'search');
     Route::get('events/postulations', 'postulationsOfEvent');
     Route::get('organisator/events', 'displayEventOfganisator');
@@ -51,7 +50,7 @@ Route::controller(EventController::class)->group(function () {
 
 Route::controller(PostulationController::class)->group(function () {
     Route::post('postulation', 'createPostulation');
-    Route::put('accepte', 'accepteReservation');
+    Route::put('accepte/{id}', 'accepteReservation');
     Route::get('benevole/postulation', 'showbenevolePostulation');
 
 });
