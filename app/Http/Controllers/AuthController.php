@@ -36,6 +36,39 @@ class AuthController extends Controller
  * )
  */
 
+
+//  public function login(Request $request)
+// {
+//     $request->validate([
+//         'email' => 'required|string|email',
+//         'password' => 'required|string',
+//     ]);
+
+//     $credentials = $request->only('email', 'password');
+
+//     if (!Auth::attempt($credentials)) {
+//         return response()->json([
+//             'status' => 'error',
+//             'message' => 'Unauthorized',
+//         ], 401);
+//     }
+
+//     $user = Auth::user();
+
+//     return response()->json([
+//         'status' => 'success',
+//         'user' => $user,
+//         'role' => $user->role, 
+//         'authorisation' => [
+//             'token' => $user->createToken('Token Name')->plainTextToken,
+//             'type' => 'bearer',
+//         ]
+//     ]);
+// }
+
+
+
+
     public function login(Request $request)
     {
         $request->validate([
