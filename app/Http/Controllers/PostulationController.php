@@ -98,7 +98,7 @@ class PostulationController extends Controller
  * )
  */
 
-    public function accepteReservation(Request $request, $id)
+    public function acceptePostulation(Request $request, $id)
     {
         $request->validate([
             'status' => 'required',
@@ -135,6 +135,33 @@ class PostulationController extends Controller
  *     )
  * )
  */
+
+
+ 
+ public function postulationsOfEvent()
+ {
+     try {
+         $userId = Auth::id();
+ 
+         $postulations = Postulation::where('statut', 'pending')
+             ->whereHas('event', ['user_id' => $userId])
+             ->with('user')
+             ->get();
+ 
+         return response()->json([
+             'status' => 'success',
+             'postulations' => $postulations,
+         ], 200);
+     } catch (\Exception $e) {
+         return response()->json([
+             'status' => 'error',
+             'message' => $e->getMessage(),
+         ], 500);
+     }
+ }
+ 
+ 
+ 
 
 public function showbenevolePostulation(){
         $userId = Auth::id();

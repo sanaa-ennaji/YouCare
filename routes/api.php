@@ -40,15 +40,15 @@ Route::controller(EventController::class)->group(function () {
     Route::put('updateEvent/{id}', 'update');
     Route::delete('destroyEvent/{id}', 'destroy');
     Route::get('events/search', 'search');
-    Route::get('events/postulations', 'postulationsOfEvent');
     Route::get('organisator/events', 'displayEventOfganisator');
 }); 
 
 
 Route::controller(PostulationController::class)->group(function () {
     Route::post('postulation', 'createPostulation');
-    Route::put('accepte/{id}', 'accepteReservation');
+    Route::put('accepte/{id}', 'acceptePostulation');
     Route::get('benevole/postulation', 'showbenevolePostulation');
+    Route::get('organisator/postulations', 'postulationsOfEvent');
 
 });
 

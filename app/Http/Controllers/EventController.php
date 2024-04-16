@@ -178,16 +178,16 @@ class EventController extends Controller
             'event' => $event,
         ]);
     }
-    public function postulationsOfEvent()
-    {
-        $userId = Auth::id();
-        $postulations = Event::where('user_id', $userId)->with('postulations')->get()->pluck('postulations')->flatten();
-        return response()->json([
-            'status' => 'success',
-            'event' => $postulations
-            ,
-        ]);
-    }
+    // public function postulationsOfEvent()
+    // {
+    //     $userId = Auth::id();
+    //     $postulations = Event::where('user_id', $userId)->with('postulations')->get()->pluck('postulations')->flatten();
+    //     return response()->json([
+    //         'status' => 'success',
+    //         'event' => $postulations
+    //         ,
+    //     ]);
+    // }
 
 
 
