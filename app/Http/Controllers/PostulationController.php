@@ -144,8 +144,7 @@ class PostulationController extends Controller
      try {
          $userId = auth()->user()->id;
  
-         $postulations = Postulation::where('status', 'pending')
-             ->whereHas('event', fn($q) => $q->where('user_id', $userId))
+         $postulations = Postulation::whereHas('event', fn($q) => $q->where('user_id', $userId))
              ->with('user')
              ->get();
  
