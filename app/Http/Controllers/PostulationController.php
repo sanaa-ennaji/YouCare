@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Postulation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PHPOpenSourceSaver\JWTAuth\JWTAuth;
 
 class PostulationController extends Controller
 {
@@ -141,10 +142,10 @@ class PostulationController extends Controller
  public function postulationsOfEvent()
  {
      try {
-         $userId = Auth::id();
+         $userId = auth()->user()->id;
  
-         $postulations = Postulation::where('statut', 'pending')
-             ->whereHas('event', ['user_id' => $userId])
+         $postulations = Postulation::where('status', 'pending')
+             ->whereHas('event', fn($q) => $q->where('user_id', $userId))
              ->with('user')
              ->get();
  
