@@ -56,8 +56,6 @@ class PostulationController extends Controller
             'postulation' =>  $postule,
         ], 201);
        
-       
-
     }
 
 /**
@@ -144,9 +142,9 @@ class PostulationController extends Controller
      try {
          $userId = auth()->user()->id;
  
-         $postulations = Postulation::whereHas('event', fn($q) => $q->where('user_id', $userId))
-             ->with('user')
-             ->get();
+         $postulations = Postulation::whereHas('event', function($q) use ($userId) {
+             $q->where('user_id', $userId);
+         })->with('user', 'event')->get();
  
          return response()->json([
              'status' => 'success',
