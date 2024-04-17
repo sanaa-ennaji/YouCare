@@ -172,12 +172,12 @@ class EventController extends Controller
     public function displayEventOfganisator()
     {
         $userId = Auth::id();
-        $event = Event::where('user_id', $userId)->get();
+        $event = Event::where('user_id', $userId)->with('organisator')->get();
         return response()->json([
             'status' => 'success',
             'event' => $event,
         ]);
-    }
+    } 
     // public function postulationsOfEvent()
     // {
     //     $userId = Auth::id();
@@ -244,6 +244,7 @@ class EventController extends Controller
             'status' => 'success',
             'events' => $events,
         ]);
+        
     }
 
 
