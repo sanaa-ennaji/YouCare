@@ -41,5 +41,4 @@ Vous êtes chargé(e) de développer une **API REST** avec Laravel pour cette pl
 - Les bénévoles peuvent utiliser leurs points pour bénéficier de récompenses ou d'avantages sur la plateforme.
 - Système de réputation permettant aux bénévoles de laisser des commentaires sur les organisateurs après chaque événement.
 
----
 
